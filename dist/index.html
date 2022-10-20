@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script src="./launcher.js"></script>
+</head>
+<html>
+
+<body>
+  <script>
+    async function init() {
+      application.LibHost = "";
+      let module = await application.newModule("@dapp/main", {
+    "env": "testnet",
+    "main": "@dapp/main",
+    "moduleDir": "modules",
+    "modules": {
+        "@dapp/main": {
+            "path": "main",
+            "dependencies": [
+                "@dapp/module1",
+                "@dapp/assets"
+            ]
+        },
+        "@dapp/assets": {
+            "path": "assets",
+            "dependencies": []
+        },
+        "@dapp/module1": {
+            "path": "module1",
+            "dependencies": []
+        }
+    },
+    "dependencies": {},
+    "menus": [
+        {
+            "caption": "Module 1",
+            "module": "@dapp/module1"
+        }
+    ],
+    "networks": [
+        {
+            "name": "Ethereum",
+            "chainId": 1,
+            "img": "@dapp/assets/img/network/eth.svg",
+            "rpc": "https://mainnet.infura.io/v3/{InfuraId}",
+            "env": "mainnet"
+        },
+        {
+            "name": "Binance Smart Chain",
+            "chainId": 56,
+            "img": "@dapp/assets/img/network/bsc.svg",
+            "rpc": "https://bsc-dataseed.binance.org/",
+            "env": "mainnet"
+        },
+        {
+            "name": "BSC Testnet",
+            "chainId": 97,
+            "img": "@dapp/assets/img/network/bsc.svg",
+            "rpc": "https://data-seed-prebsc-1-s1.binance.org:8545/",
+            "env": "testnet"
+        }
+    ]
+});
+      document.body.append(module);
+    };
+    init();
+  </script>
+</body>
+
+</html>
